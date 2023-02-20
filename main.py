@@ -28,7 +28,6 @@ class SocketManager:
 
 manager = SocketManager()
 
-
 @app.websocket("/api/chat")
 async def chat(websocket: WebSocket):
     sender = websocket.cookies.get("X-Authorization")
@@ -56,6 +55,10 @@ def get_user(request: Request):
 class RegisterValidator(BaseModel):
     username: str
 @app.post("/api/register")
+def register_user(user: str, response: Response):
+    response.set_cookie(key="X-Authorization", value=user.username, httponly=True)
+
+@app.post("/api/user")
 def register_user(user: str, response: Response):
     response.set_cookie(key="X-Authorization", value=user.username, httponly=True)
     
