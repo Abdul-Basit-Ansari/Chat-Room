@@ -55,7 +55,6 @@ def get_user(request: Request):
 
 class RegisterValidator(BaseModel):
     username: str
-
 @app.post("/api/register")
 def register_user(user: str, response: Response):
     response.set_cookie(key="X-Authorization", value=user.username, httponly=True)
